@@ -2,16 +2,19 @@ const express = require('express')
 const app = express()
 const Bookmark = require('./models/bookmarkModel')
 const mongoose = require('mongoose')
+const cors = require('cors');
  
 
 app.use(express.json())
+app.use(cors())
+
 // routes 
 
 app.get('/', (req, res) =>{
     res.send('hello node API')
 })
 
-app.post('/addBookmark', async(req, res)=>{
+app.post('/', async(req, res)=>{
     try {
         const bookmark = await Bookmark.create(req.body)
         res.status(200).json(bookmark)
