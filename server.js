@@ -14,7 +14,7 @@ app.get('/', (req, res) =>{
     res.send('Yay....My nodejs API is working fine')
 })
 
-app.post('/', async(req, res)=>{
+app.post('/addBookmark', async(req, res)=>{
     try {
         const bookmark = await Bookmark.create(req.body)
         res.status(200).json(bookmark)
