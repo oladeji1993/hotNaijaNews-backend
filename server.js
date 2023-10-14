@@ -11,7 +11,7 @@ app.use(cors())
 // routes 
 
 app.get('/', (req, res) =>{
-    res.send('YAy....My nodejs API is working fine')
+    res.send('Yay....My nodejs API is working fine')
 })
 
 app.post('/', async(req, res)=>{
