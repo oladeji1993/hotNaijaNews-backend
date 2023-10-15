@@ -16,17 +16,20 @@ app.get("/", (req, res) => {
 app.post("/addBookmark", async (req, res) => {
   try {
     const checkItem = await Bookmark.findOne(req.title);
-    if(checkItem){
-        res.status(400).json({ mesage: "Item already exist in your bookmark list" });
-    }else{
-        const bookmark = await Bookmark.create(req.body);
-        res
-          .status(200)
-          .json({
-            message: "News added to bookmark successfully",
-            code: 200,
-            data: bookmark,
-          });
+    if (checkItem) {
+      res
+        .status(400)
+        .json({
+          mesage: "Item already exist in your bookmark list",
+          code: 400,
+        });
+    } else {
+      const bookmark = await Bookmark.create(req.body);
+      res.status(200).json({
+        message: "News added to bookmark successfully",
+        code: 200,
+        data: bookmark,
+      });
     }
   } catch (error) {
     console.log(error.message);
@@ -37,13 +40,11 @@ app.post("/addBookmark", async (req, res) => {
 app.get("/bookmarks", async (req, res) => {
   try {
     const bookmarks = await Bookmark.find({});
-    res
-      .status(200)
-      .json({
-        message: "Bookmarks fetched successfully",
-        code: 200,
-        data: bookmarks,
-      });
+    res.status(200).json({
+      message: "Bookmarks fetched successfully",
+      code: 200,
+      data: bookmarks,
+    });
   } catch (err) {
     res.status(500).json({ message: err.mesage });
   }
@@ -58,13 +59,12 @@ app.delete("/bookmark/:id", async (req, res) => {
         .status(404)
         .json({ message: `Cannot find any product with Id ${id}` });
     } else {
-        res
-        .status(200)
-        .json({
-          message: "Item deleted successfully",
-          code: 200,
-          data: bookmark,
-        });    }
+      res.status(200).json({
+        message: "Item deleted successfully",
+        code: 200,
+        data: bookmark,
+      });
+    }
   } catch (err) {
     res.status(500).json({ message: err.mesage });
   }
