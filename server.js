@@ -15,14 +15,19 @@ app.get("/", (req, res) => {
 
 app.post("/addBookmark", async (req, res) => {
   try {
-    const bookmark = await Bookmark.create(req.body);
-    res
-      .status(200)
-      .json({
-        message: "News added to bookmark successfully",
-        code: 200,
-        data: bookmark,
-      });
+    const checkItem = await Bookmark.findOne(req.title);
+    if(checkItem){
+        res.status(400).json({ mesage: "Item already exist in your bookmark list" });
+    }else{
+        const bookmark = await Bookmark.create(req.body);
+        res
+          .status(200)
+          .json({
+            message: "News added to bookmark successfully",
+            code: 200,
+            data: bookmark,
+          });
+    }
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ mesage: error.message });
