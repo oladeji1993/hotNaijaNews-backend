@@ -15,7 +15,7 @@ app.get("/", (req, res) => {
 
 app.post("/addBookmark", async (req, res) => {
   try {
-    const checkItem = await Bookmark.findOne(req.title);
+    const checkItem = await Bookmark.findOne({title: req.body.title});
     if (checkItem) {
       res
         .status(400)
@@ -33,7 +33,7 @@ app.post("/addBookmark", async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
-    res.status(500).json({ mesage: error.message });
+    res.status(500).json({ message: error.message });
   }
 });
 
