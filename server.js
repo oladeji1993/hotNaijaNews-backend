@@ -20,7 +20,7 @@ app.post("/addBookmark", async (req, res) => {
       res
         .status(400)
         .json({
-          mesage: "Item already exist in your bookmark list",
+          message: "Item already exist in your bookmark list",
           code: 400,
         });
     } else {
